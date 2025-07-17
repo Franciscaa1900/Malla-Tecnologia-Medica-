@@ -1,0 +1,73 @@
+<!DOCTYPE html><html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Malla Curricular Tecnología Médica</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fff0f5;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #d63384;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .periodo {
+      background: #ffe6f0;
+      border: 2px solid #d63384;
+      border-radius: 12px;
+      padding: 10px;
+    }
+    .materia {
+      background: #fff;
+      border: 1px solid #d63384;
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 8px;
+      position: relative;
+      cursor: pointer;
+    }
+    .materia.locked {
+      background-color: #f8d7da;
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .materia:hover::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      background: #d63384;
+      color: white;
+      padding: 6px;
+      border-radius: 6px;
+      top: 100%;
+      left: 0;
+      white-space: nowrap;
+      display: block;
+      z-index: 1;
+    }
+    .materia.approved {
+      background-color: #d4edda;
+      border-color: #28a745;
+    }
+  </style>
+</head>
+<body>
+  <h1>Malla Curricular - Tecnología Médica</h1>
+  <div id="malla" class="grid"></div>  <script>
+    const materias = [
+      { id: 'TECM-2401', nombre: 'BIOMATEMATICAS I', periodo: 'PRIMER AÑO (PERIODO 1)', creditos: 4 },
+      { id: 'FCSA-2402', nombre: 'BIOLOGIA E HISTOLOGIA', periodo: 'PRIMER AÑO (PERIODO 1)', creditos: 7 },
+      { id: 'FCSA-2403', nombre: 'QUIMICA GENERAL Y ORGANICA', periodo: 'PRIMER AÑO (PERIODO 1)', creditos: 6 },
+      { id: 'FCSA-2401', nombre: 'ANATOMIA GENERAL', periodo: 'PRIMER AÑO (PERIODO 1)', creditos: 6 },
+      { id: 'TECM-2402', nombre: 'INTRODUCCION A LA TECNOLOGIA MEDICA', periodo: 'PRIMER AÑO (PERIODO 1)', creditos: 3 },
+      { id: 'FGRA-2401', nombre: 'TECNOLOGIA E INNOVACION', periodo: 'PRIMER AÑO (PERIODO 1)', creditos: 4 },
+      { id: 'TECM-2403
