@@ -1,0 +1,110 @@
+<!DOCTYPE html><html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Malla Curricular Tecnología Médica - UDALBA</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fff0f5;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #c71585;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .periodo {
+      background-color: #ffe4f0;
+      border-radius: 12px;
+      padding: 15px;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+    }
+    .periodo h2 {
+      color: #d63384;
+      font-size: 18px;
+      border-bottom: 2px solid #d63384;
+      padding-bottom: 5px;
+    }
+    .ramo {
+      margin: 8px 0;
+      padding: 8px;
+      border-radius: 8px;
+      background-color: #f8f0fa;
+      cursor: pointer;
+    }
+    .ramo.bloqueado {
+      background-color: #f3c6d6;
+      cursor: not-allowed;
+      position: relative;
+    }
+    .ramo.bloqueado:hover::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      left: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #d63384;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 8px;
+      white-space: nowrap;
+      z-index: 10;
+      font-size: 12px;
+    }
+    .ramo.aprobado {
+      background-color: #d8f0d4;
+      text-decoration: line-through;
+    }
+  </style>
+</head>
+<body>
+  <h1>Malla Curricular Tecnología Médica - UDALBA</h1>
+  <div class="grid" id="malla"></div>
+  <script>
+    const ramos = [
+      {
+        periodo: 'CBC: PRIMER AÑO (PERIODO 1)',
+        asignaturas: [
+          { codigo: 'TECM-2401', nombre: 'BIOMATEMATICAS I', creditos: 4 },
+          { codigo: 'FCSA-2402', nombre: 'BIOLOGIA E HISTOLOGIA', creditos: 7 },
+          { codigo: 'FCSA-2403', nombre: 'QUIMICA GENERAL Y ORGANICA', creditos: 6 },
+          { codigo: 'FCSA-2401', nombre: 'ANATOMIA GENERAL', creditos: 6 },
+          { codigo: 'TECM-2402', nombre: 'INTRODUCCION A LA TECNOLOGIA MEDICA', creditos: 3 },
+          { codigo: 'FGRA-2401', nombre: 'TECNOLOGIA E INNOVACION', creditos: 4 }
+        ]
+      },
+      {
+        periodo: 'PRIMER AÑO (SEGUNDO PERIODO)',
+        asignaturas: [
+          { codigo: 'TECM-2403', nombre: 'BIOMATEMATICAS II', creditos: 8, requisitos: ['TECM-2401'] },
+          { codigo: 'FCSA-2205', nombre: 'PSICOLOGIA GENERAL Y DEL DESARROLLO', creditos: 4 },
+          { codigo: 'FCSA-2404', nombre: 'BIOQUIMICA', creditos: 5, requisitos: ['FCSA-2403'] },
+          { codigo: 'FCSA-2202', nombre: 'BIOESTADISTICA', creditos: 5 },
+          { codigo: 'TECM-2404', nombre: 'ANATOMIA TOPOGRAFICA Y NEUROANATOMIA', creditos: 9, requisitos: ['FCSA-2401'] }
+        ]
+      },
+      // Agrega aquí los demás periodos siguiendo el mismo formato
+    ];const aprobados = JSON.parse(localStorage.getItem('aprobados')) || [];
+
+function render() {
+  const contenedor = document.getElementById('malla');
+  contenedor.innerHTML = '';
+  ramos.forEach(periodo => {
+    const divPeriodo = document.createElement('div');
+    divPeriodo.className = 'periodo';
+    divPeriodo.innerHTML = `<h2>${periodo.periodo}</h2>`;
+
+    periodo.asignaturas.forEach(ramo => {
+      const divRamo = document.createElement('div');
+      divRamo.className = 'ramo';
+      divRamo.textContent = `${ramo.codigo} - ${ramo.nombre} (${ramo.creditos})`;
+      const cumplidos = (ramo.requisitos || []).every
+
